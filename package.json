@@ -1,0 +1,23 @@
+{
+  "name": "js-learning",
+  "version": "1.0.0",
+  "description": "JS Learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/imNicoSuarez/js-learning.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imNicoSuarez/js-learning/issues"
+  },
+  "homepage": "https://github.com/imNicoSuarez/js-learning",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
