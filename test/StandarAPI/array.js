@@ -78,7 +78,41 @@ describe('Array', function() {
       assert.equal(9, totalSum);
     })
 
+  });
 
+  describe('array_slice()', function () {
+    it('should return an array of elements between position 1 and 3', function(){
+      var array = ['a', 'b', 'c', 'd', 'e'];
+
+      var newArray = arrayFunctions.array_slice(array, 1, 3);
+
+      expect(newArray).to.deep.equal(['b', 'c']);
+
+    });
+
+    it('should return an array with elements of position 3 towards the end', function(){
+      var array = ['a', 'b', 'c', 'd', 'e'];
+
+      var newArray = arrayFunctions.array_slice(array, 3);
+
+      expect(newArray).to.deep.equal(['d', 'e']);
+    });
+
+    it('should return an array with all elements except the last two', function(){
+      var array = ['a', 'b', 'c', 'd', 'e'];
+
+      var newArray = arrayFunctions.array_slice(array, -2);
+
+      expect(newArray).to.deep.equal(['a', 'b', 'c']);
+    });
+
+    it('should return an array with elements that are after position 1 and before the last two', function(){
+      var array = ['a', 'b', 'c', 'd', 'e'];
+
+      var newArray = arrayFunctions.array_slice(array, 1, -2);
+
+      expect(newArray).to.deep.equal(['b', 'c']);
+    });
   });
 
 });
