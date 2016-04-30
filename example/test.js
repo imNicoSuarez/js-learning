@@ -8,10 +8,12 @@ arrayFunctions.array_push(array, 'hello', 'word');
 console.log(array);
 
 
+
 console.log('Method: array_pop ----')
 
 arrayFunctions.array_pop(array)
 console.log(array);
+
 
 
 console.log('Method: array_reduce ----')
@@ -23,6 +25,13 @@ total = arrayFunctions.array_reduce(array, function(previous_value, current_valu
 }, -1)
 
 console.log(total);
+
+total = arrayFunctions.array_reduce([1, 2, 3, 4], function(memo, current) {
+  return memo * current
+});
+
+console.log(total)
+
 
 
 console.log('Method: array_slice ----')

@@ -46,7 +46,6 @@ describe('Array', function() {
   });
 
   describe('array_reduce()', function () {
-
     it('should return the sum of all elements of the array', function () {
       var array = [1,2,3];
 
@@ -78,6 +77,42 @@ describe('Array', function() {
       assert.equal(9, totalSum);
     })
 
+    it('should return the total of her multiplication of all elements', function(){
+      var array = [1, 2, 3, 4];
+
+      var totalMulti = arrayFunctions.array_reduce(array, function(memo, current) {
+        return memo * current
+      });
+
+      assert.equal(24, totalMulti);
+    })
+
+    it('should return the total of the multiplication of all elements, starting from -1', function(){
+      var array = [1, 2, 3];
+
+      var totalMulti = arrayFunctions.array_reduce(array, function(memo, current) {
+        return memo * current
+      }, -1);
+
+      assert.equal(-6, totalMulti);
+    })
+
+    it('should return null', function(){
+      var array = [100, 0, 2];
+
+      var valueReturn = arrayFunctions.array_reduce(array, function(memo, current) {
+        if (current === 0) {
+        return null;
+        } else if (memo === null) {
+        return null;
+        } else {
+        return memo / current;
+        }
+      });
+
+      assert.equal(null, valueReturn);
+    })
+
   });
 
   describe('array_slice()', function () {
@@ -86,8 +121,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 1, 3);
 
-      expect(newArray).to.deep.equal(['b', 'c']);
-
+      expect(['b', 'c']).to.deep.equal(newArray);
     });
 
     it('should return an array with elements of position 3 towards the end', function(){
@@ -95,7 +129,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 3);
 
-      expect(newArray).to.deep.equal(['d', 'e']);
+      expect(['d', 'e']).to.deep.equal(newArray);
     });
 
     it('should return an array with all elements except the last two', function(){
@@ -103,7 +137,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, -2);
 
-      expect(newArray).to.deep.equal(['a', 'b', 'c']);
+      expect(['a', 'b', 'c']).to.deep.equal(newArray);
     });
 
     it('should return an array with elements that are after position 1 and before the last two', function(){
@@ -111,7 +145,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 1, -2);
 
-      expect(newArray).to.deep.equal(['b', 'c']);
+      expect(['b', 'c']).to.deep.equal(newArray);
     });
   });
 

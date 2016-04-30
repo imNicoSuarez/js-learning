@@ -26,17 +26,12 @@ function array_pop(array) {
 */
 function array_reduce(array, callback, initial_value) {
 
-  var previous_value;
+  var previous_value, i;
 
-  if (typeof initial_value !== 'undefined') {
-    previous_value = initial_value;
-  }
+  previous_value = initial_value || array[0];
+  i = (typeof initial_value !== 'undefined')? 0 : 1;
 
-  for (var i = 0; i < array.length; i++) {
-    if (previous_value == null ){
-      previous_value = 0;
-    }
-
+  for (i; i < array.length; i++) {
     previous_value = callback(previous_value, array[i], i);
   }
 
@@ -47,31 +42,24 @@ function array_reduce(array, callback, initial_value) {
   Method array_slice
 */
 function array_slice(array, begin, end) {
-  var newArray = [];
+
+  var newArray, newBegin, newEnd;
+
+  newArray = [];
+
+  end = end || array.length;
+
+  if (begin < 0) {
+    newEnd = (array.length + begin);
+    newBegin = 0;
+  } else {
+    newEnd = (end < 0)? (array.length + end) : end;
+    newBegin = begin;
+  }
 
   for (var i = 0; i < array.length; i++) {
-    if (typeof end !== 'undefined') {
-      if (i >=  begin && i < end) {
-        newArray.push(array[i]);
-
-      } else if (end < 0) {
-        newEnd = (array.length + end);
-
-        if (i >=  begin && i < newEnd) {
-          newArray.push(array[i]);
-        }
-      }
-    } else {
-      if (begin < 0) {
-        newBegin = ((array.length - 1)+ begin);
-
-        if (i <= newBegin) {
-          newArray.push(array[i]);
-        }
-
-      } else if (i >= begin) {
-        newArray.push(array[i]);
-      }
+    if (i >=  newBegin && i < newEnd) {
+      newArray.push(array[i]);
     }
   }
 
