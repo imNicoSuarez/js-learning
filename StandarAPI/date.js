@@ -2,7 +2,7 @@
   Method date_yesterday
 */
 function date_yesterday(date) {
-  return new Date(date.getTime()-(86400000))
+  return new Date(date -(86400000))
 }
 
 /*
@@ -19,12 +19,23 @@ function date_getUTCFullYear(date) {
 }
 
 
+/*
+  Method date_diffInDays
+*/
+function date_diffInDays(date1, date2) {
+  var diffTime = date1 - date2;
+  var diffDay = Math.ceil(diffTime / (86400000))
 
+  var diff = (diffDay < 0)? (diffDay * -1) : diffDay;
+
+  return diff;
+}
 
 /*
   Definition of exports
 */
 exports.date_yesterday = date_yesterday;
 exports.date_getUTCFullYear = date_getUTCFullYear;
+exports.date_diffInDays = date_diffInDays;
 
 
