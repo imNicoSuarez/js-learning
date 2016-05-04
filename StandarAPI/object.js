@@ -3,7 +3,7 @@
   Method object_equal
 */
 function object_equal(obj1, obj2) {
-  return 'Not Implemented'
+  return  JSON.stringify(obj1) == JSON.stringify(obj2);
 }
 
 /*
