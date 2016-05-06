@@ -19,6 +19,7 @@ describe('Number', function() {
       it('should return the integer', function () {
         expect(1).to.deep.equal(numberFunctions.number_parseInt('1.9'));
         expect(-1).to.deep.equal(numberFunctions.number_parseInt('-1.9'));
+        expect(1).to.deep.equal(numberFunctions.number_parseInt(1.9));
       });
     });
 
@@ -28,6 +29,8 @@ describe('Number', function() {
         expect(NaN).to.deep.equal(numberFunctions.number_parseInt(null));
       });
     });
+
+
   });
 
   describe('number_parseFloat()', function () {

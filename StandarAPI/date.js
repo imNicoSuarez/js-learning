@@ -1,8 +1,10 @@
+var ONEDAY = 86400000;
+
 /*
   Method date_yesterday
 */
 function date_yesterday(date) {
-  return new Date(date -(86400000))
+  return new Date(date - ONEDAY);
 }
 
 /*
@@ -24,7 +26,7 @@ function date_getUTCFullYear(date) {
 */
 function date_diffInDays(date1, date2) {
   var diffTime = date1 - date2;
-  var diffDay = Math.ceil(diffTime / (86400000))
+  var diffDay = Math.ceil(diffTime / ONEDAY);
 
   var diff = (diffDay < 0)? (diffDay * -1) : diffDay;
 

@@ -11,8 +11,9 @@ describe('Array', function() {
   describe('array_push()', function () {
     it('should return the total number of elements in the array', function () {
       var array = [1,2,3];
-      assert.equal(5, arrayFunctions.array_push(array, 'hello', 'word'));
-      assert.equal(6, arrayFunctions.array_push(array, 'bye'));
+
+      expect(arrayFunctions.array_push(array, 'hello', 'word')).to.equal(5);
+      expect(arrayFunctions.array_push(array, 'bye')).to.equal(6);
     });
 
     it('should modify the original object', function(){
@@ -20,8 +21,8 @@ describe('Array', function() {
 
       arrayFunctions.array_push(array, 'hello', 'word');
 
-      assert.include(array, 'hello');
-      assert.include(array, 'word');
+      expect(array).to.include('hello');
+      expect(array).to.include('word');
     })
   });
 
@@ -53,7 +54,7 @@ describe('Array', function() {
         return preview_value + current_value;
       });
 
-      assert.equal(6, totalSum);
+      expect(totalSum).to.equal(6);
     });
 
     it('should return the sum of all elements starting from the initial value', function(){
@@ -63,7 +64,7 @@ describe('Array', function() {
         return preview_value + current_value;
       }, 10);
 
-      assert.equal(16, totalSum);
+      expect(totalSum).to.equal(16);
     })
 
     it('should return the sum of all elements more their index', function(){
@@ -74,7 +75,7 @@ describe('Array', function() {
           return preview_value +  (current_value + index_value);
       });
 
-      assert.equal(9, totalSum);
+      expect(totalSum).to.equal(9);
     })
 
     it('should return the total of her multiplication of all elements', function(){
@@ -84,7 +85,7 @@ describe('Array', function() {
         return memo * current
       });
 
-      assert.equal(24, totalMulti);
+      expect(totalMulti).to.equal(24);
     })
 
     it('should return the total of the multiplication of all elements, starting from -1', function(){
@@ -94,7 +95,17 @@ describe('Array', function() {
         return memo * current
       }, -1);
 
-      assert.equal(-6, totalMulti);
+      expect(totalMulti).to.equal(-6);
+    })
+
+    it('should return the total of the multiplication of all elements, starting from 0', function(){
+      var array = [1, 2, 3];
+
+      var totalMulti = arrayFunctions.array_reduce(array, function(memo, current) {
+        return memo * current
+      }, 0);
+
+      expect(totalMulti).to.equal(0);
     })
 
     it('should return null', function(){
@@ -110,7 +121,7 @@ describe('Array', function() {
         }
       });
 
-      assert.equal(null, valueReturn);
+      expect(valueReturn).to.equal(null);
     })
 
   });
@@ -121,7 +132,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 1, 3);
 
-      expect(['b', 'c']).to.deep.equal(newArray);
+      expect(newArray).to.deep.equal(['b', 'c']);
     });
 
     it('should return an array with elements of position 3 towards the end', function(){
@@ -129,7 +140,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 3);
 
-      expect(['d', 'e']).to.deep.equal(newArray);
+      expect(newArray).to.deep.equal(['d', 'e']);
     });
 
     it('should return an array with all elements except the last two', function(){
@@ -137,7 +148,7 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, -2);
 
-      expect(['a', 'b', 'c']).to.deep.equal(newArray);
+      expect(newArray).to.deep.equal(['a', 'b', 'c']);
     });
 
     it('should return an array with elements that are after position 1 and before the last two', function(){
@@ -145,7 +156,23 @@ describe('Array', function() {
 
       var newArray = arrayFunctions.array_slice(array, 1, -2);
 
-      expect(['b', 'c']).to.deep.equal(newArray);
+      expect(newArray).to.deep.equal(['b', 'c']);
+    });
+
+    it('should return an array with an element that lies between -4 and -3', function() {
+      var array = [1, 2, 3, 4];
+
+      var result = arrayFunctions.array_slice(array, -4, -3);
+
+      expect(result).to.deep.equal([1]);
+    });
+
+    it('should return a empty array if you add 0 and 0', function() {
+      var array = [1, 2, 3, 4];
+
+      var result = arrayFunctions.array_slice(array, 0, 0);
+
+      expect(result).to.deep.equal([]);
     });
   });
 
