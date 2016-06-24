@@ -16,7 +16,7 @@ describe('Date', function() {
 
       var yesterday = dateFunctions.date_yesterday(now);
 
-      expect('2015-12-31T00:00:00.000Z').to.deep.equal(yesterday.toISOString());
+      expect(yesterday.toISOString()).to.deep.equal('2015-12-31T00:00:00.000Z');
 
     });
 
@@ -29,7 +29,7 @@ describe('Date', function() {
 
       var yearUTC = dateFunctions.date_getUTCFullYear(date);
 
-      expect('2016').to.deep.equal(yearUTC.toString());
+      expect(yearUTC.toString()).to.deep.equal('2016');
     })
 
   });
@@ -42,7 +42,7 @@ describe('Date', function() {
 
       var diff = dateFunctions.date_diffInDays(today, today);
 
-      expect(0).to.deep.equal(diff);
+      expect(diff).to.deep.equal(0);
     })
 
     it('should return the difference between days', function() {
@@ -52,8 +52,8 @@ describe('Date', function() {
       var diff = dateFunctions.date_diffInDays(today, yesterday);
       var diff2 = dateFunctions.date_diffInDays(yesterday, today);
 
-      expect(1).to.deep.equal(diff);
-      expect(1).to.deep.equal(diff2);
+      expect(diff).to.deep.equal(1);
+      expect(diff2).to.deep.equal(1);
     });
 
   });

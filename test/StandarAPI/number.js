@@ -11,8 +11,10 @@ describe('Number', function() {
   describe('number_parseInt()', function () {
 
     it('should return the number of string parsing', function () {
-      expect(1).to.deep.equal(numberFunctions.number_parseInt('1'));
-      expect(-1).to.deep.equal(numberFunctions.number_parseInt('-1'));
+      expect(numberFunctions.number_parseInt('-1')).to.deep.equal(-1);
+    });
+    it('should return the number of string parsing', function () {
+      expect(numberFunctions.number_parseInt('1')).to.deep.equal(1);
     });
 
     describe('if the string is a rational number', function(){
