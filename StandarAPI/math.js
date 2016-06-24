@@ -18,6 +18,9 @@ function graphSinX(nx) {
   return values;
 }
 
+if (typeof define !== 'function') {
+  var define = require('amdefine')(module);
+}
 
 define(['exports'], function(exports) {
   exports.graphSinX = graphSinX;
