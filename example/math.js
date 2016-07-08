@@ -18,7 +18,7 @@ function generateGraphicSinX(num, color, math) {
   canvas.height = 200;
 
   var ctx = canvas.getContext("2d");
-  var coordinates = math.graphSinX(num);
+  var coordinates = math(num);
   ctx.beginPath();
 
   ctx.strokeStyle = color;

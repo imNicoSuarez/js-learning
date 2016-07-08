@@ -1,24 +1,32 @@
 var color = require('colors');
 
 /*
-  Define itc
+  Define it
 */
 function it(message, callback){
   try {
     callback();
+    printTestResult({description: message});
   } catch (e) {
     test = new ControlError(e, message);
-    test.message();
+    printTestResult(test);
   }
 }
 
 /*
-  Define assert_equals
+  Define assertEquals
 */
-function assert_equals(expected, actual) {
+function assertEquals(expected, actual) {
+  if (expected !== actual) {
+    throw new TestError(expected, actual);
+  }
+}
+
+/*
+  Define assertNotEquals
+*/
+function assertNotEquals(expected, actual) {
   if (expected === actual) {
-    throw new TestSuccess(expected, actual);
-  } else {
     throw new TestError(expected, actual);
   }
 }
@@ -27,56 +35,60 @@ function assert_equals(expected, actual) {
   Object for centralize Errors
 */
 function ControlError(error, description) {
-  this.stack = error.stack;
-  this.name =  error.name;
+  this.error = error;
+  this.description = description;
+}
 
-  /*
-    Get file name of Error
-  */
-  function getFileName(){
-    var dataName = getDataOfStack()[0].split('/');
-    return dataName[dataName.length-1];
-  }
+/*
+  Get information of the stack Error
+*/
+ControlError.prototype.getDataOfStack = function() {
+  return  this.error.stack.toString()
+                    .split('at')[(this.error instanceof TestError)? 3 : 1]
+                    .replace('\n', '')
+                    .split(':');
+}
 
-  /*
-    Get line number error
-  */
-  function getLineNumber(){
-    return getDataOfStack()[1];
-  }
+/*
+  Get file name of Error
+*/
+ControlError.prototype.getFileName = function(){
+  var dataName = this.getDataOfStack()[0].split('/');
+  return dataName[dataName.length-1];
+}
 
-  /*
-    Get information of the stack Error
-  */
-  function getDataOfStack() {
-    return  error.stack.toString()
-                       .split('at')[(error instanceof TestError)? 3 : 1]
-                       .replace('\n', '')
-                       .split(':');
-  }
+/*
+  Get line number error
+*/
+ControlError.prototype.getLineNumber = function(){
+  return this.getDataOfStack()[1];
+}
 
-  /*
-    Generete messages;
-  */
-  this.message = function() {
-    if (error instanceof TestError) {
-      console.log('\n');
-      console.log(color.red('failure'));
-      console.log(color.red('   expected:', error.expected));
-      console.log(color.red('   actual:', error.actual));
+/*
+  Generete messages;
+*/
+function printTestResult(object) {
+  var LEVEL_TWO = '\t\u0020\u0020';
+
+  console.log('');
+  if (object instanceof ControlError) {
+    console.log(color.red('x ').bold, color.red(object.description));
+    if (object.error instanceof TestError) {
+      console.log(color.red('\tfailure'));
+      console.log(color.red(LEVEL_TWO+'expected:', object.error.expected));
+      console.log(color.red(LEVEL_TWO+'actual:', object.error.actual));
       console.log('');
-      console.log(color.red('   file:', getFileName()));
-      console.log(color.red('   line:', getLineNumber()));
-    } else if (error instanceof TestSuccess) {
-      console.log(color.green('✓ '), color.gray(description));
+      console.log(color.red(LEVEL_TWO+'file:', object.getFileName()));
+      console.log(color.red(LEVEL_TWO+'line:', object.getLineNumber()));
     } else {
-      console.log('\n');
-      console.log(color.red('Error'));
-      console.log(color.red('   '+this.name+':', error.message));
+      console.log(color.red('\tError'));
+      console.log(color.red(LEVEL_TWO+''+object.error.name+':', object.error.message));
       console.log('');
-      console.log(color.red('   file:', getFileName()));
-      console.log(color.red('   line:', getLineNumber()));
+      console.log(color.red(LEVEL_TWO+'file:', object.getFileName()));
+      console.log(color.red(LEVEL_TWO+'line:', object.getLineNumber()));
     }
+  } else {
+    console.log(color.green('✓ '), color.gray(object.description));
   }
 }
 
@@ -93,17 +105,8 @@ TestError.prototype = Object.create(Error.prototype);
 TestError.prototype.constructor = TestError;
 
 /*
-  Define Object for Test Success
-*/
-function TestSuccess(expected, actual) {
-  this.name = 'TestSuccess';
-  this.stack = ''
-}
-TestSuccess.prototype.constructor = TestSuccess;
-
-
-/*
   Definition of exports
 */
 exports.it = it;
-exports.assert_equals = assert_equals;
+exports.assertEquals = assertEquals;
+exports.assertNotEquals = assertNotEquals;

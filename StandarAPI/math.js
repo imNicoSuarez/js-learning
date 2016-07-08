@@ -22,6 +22,6 @@ if (typeof define !== 'function') {
   var define = require('amdefine')(module);
 }
 
-define(['exports'], function(exports) {
-  exports.graphSinX = graphSinX;
+define(['module'], function(module) {
+  module.exports = graphSinX;
 });

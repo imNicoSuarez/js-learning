@@ -2,20 +2,24 @@ var simpleTest = require('../StandarAPI/errors');
 
 
 simpleTest.it('tests true is true', function(){
-  simpleTest.assert_equals(true, true);
+  simpleTest.assertEquals(true, true);
 })
 
 simpleTest.it("tests the truth", function() {
-  simpleTest.assert_equals(false, true);
+  simpleTest.assertEquals(false, true);
+});
+
+simpleTest.it("tests true is not false", function() {
+  simpleTest.assertNotEquals(false, true);
 });
 
 simpleTest.it("tests property access", function() {
   var object = {
-  name: 'Some object',
-  last_name: 'Smith'
+    name: 'Some object',
+    last_name: 'Smith'
   }
 
   var last_name = object.full_name.last_name;
 
-  simpleTest.assert_equals('Smith', last_name);
+  simpleTest.assertEquals('Smith', last_name);
 });
